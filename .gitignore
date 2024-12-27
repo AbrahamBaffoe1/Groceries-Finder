@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencies
 node_modules/
 backend/venv/
@@ -21,3 +22,6 @@ npm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+=======
+node_modules
+>>>>>>> a822eca197a9e4194f5621267299ec03ea1e4586
