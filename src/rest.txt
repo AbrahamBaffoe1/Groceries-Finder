@@ -1,0 +1,154 @@
+TASK: This islet build a simple web app that uses LLM to scan a glocery shop and tell us where we can find the items to buy base on our schefule of items to buy on the webapp, it should show us where we can find those items specifically in the shelve in "target or walmart"
+
+# Grocery Store Item Locator System Architecture
+
+## System Components
+
+### Frontend (React)
+- User Interface Components
+  - Shopping List Management
+  - Store Selection
+  - Item Location Display
+  - Real-time Updates
+  - User Authentication
+  - Store Map Visualization
+
+### Backend (Node.js/Express)
+- API Endpoints
+  - User Management
+  - Shopping List CRUD
+  - Store Layout Management
+  - Item Location Services
+  - Real-time Updates (WebSocket)
+
+### Database (PostgreSQL)
+- Tables:
+  - users
+  - stores
+  - store_layouts
+  - items
+  - item_locations
+  - shopping_lists
+  - categories
+
+### LLM Integration
+- OpenAI GPT-4 API
+  - Item Category Classification
+  - Natural Language Processing for Location Queries
+  - Store Layout Understanding
+
+### Real-time Components
+- WebSocket Server
+  - Live Updates for Item Locations
+  - Collaborative Shopping Lists
+  - Store Layout Changes
+
+## Data Models
+
+### User
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Store
+```sql
+CREATE TABLE stores (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    chain VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    layout_version INTEGER DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Store Layout
+```sql
+CREATE TABLE store_layouts (
+    id SERIAL PRIMARY KEY,
+    store_id INTEGER REFERENCES stores(id),
+    aisle_number INTEGER NOT NULL,
+    section_name VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    coordinates JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Items
+```sql
+CREATE TABLE items (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Item Locations
+```sql
+CREATE TABLE item_locations (
+    id SERIAL PRIMARY KEY,
+    item_id INTEGER REFERENCES items(id),
+    store_id INTEGER REFERENCES stores(id),
+    aisle_number INTEGER NOT NULL,
+    section_name VARCHAR(100) NOT NULL,
+    specific_location TEXT,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Shopping Lists
+```sql
+CREATE TABLE shopping_lists (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    store_id INTEGER REFERENCES stores(id),
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+## API Endpoints
+
+### Authentication
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/logout
+
+### Shopping Lists
+- GET /api/lists
+- POST /api/lists
+- PUT /api/lists/:id
+- DELETE /api/lists/:id
+
+### Items
+- GET /api/items
+- POST /api/items
+- GET /api/items/:id/location
+- PUT /api/items/:id/location
+
+### Stores
+- GET /api/stores
+- GET /api/stores/:id/layout
+- PUT /api/stores/:id/layout
+
+## Security Measures
+- JWT Authentication
+- Rate Limiting
+- Input Validation
+- CORS Configuration
+- API Key Management
+- Data Encryption
+
+## Deployment Architecture
+- Frontend: Vercel/Netlify
+- Backend: Docker containers on AWS ECS
+- Database: AWS RDS
+- WebSocket: AWS ElastiCache
+- LLM API: OpenAI API with rate limiting and caching
