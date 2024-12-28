@@ -6,158 +6,113 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.6;
-  background-color: #f4f4f4;
+  background-color: #f8fafc;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+#root {
+  min-height: 100vh;
 }
 
-/* Header styles */
-.header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  margin-bottom: 2rem;
+/* Chakra UI Enhancements */
+.chakra-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
 }
 
-/* Search section styles */
-.search-section {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+.chakra-badge {
+  transition: all 0.2s ease;
 }
 
-.search-input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+.chakra-badge:hover {
+  transform: scale(1.05);
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: #3498db;
+.chakra-modal__content {
+  margin: 1rem;
 }
 
-/* Results section styles */
-.results-section {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* List Item Enhancements */
+.chakra-list__item {
+  transition: all 0.2s ease-in-out;
 }
 
-.category-section {
-  margin-bottom: 2rem;
+.chakra-list__item:hover {
+  background-color: #f7fafc;
+  transform: translateX(4px);
 }
 
-.category-section:last-child {
-  margin-bottom: 0;
+/* Input and Button Styles */
+.chakra-input {
+  transition: all 0.2s ease;
 }
 
-.category-title {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid #3498db;
+.chakra-input:focus {
+  transform: translateY(-1px);
 }
 
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+.chakra-button {
+  transition: all 0.2s ease;
 }
 
-.item-card {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: transform 0.2s ease;
+.chakra-button:hover {
+  transform: translateY(-1px);
 }
 
-.item-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Shopping List Card */
+.shopping-list-card {
+  background: linear-gradient(to bottom right, #ffffff, #f8fafc);
 }
 
-
-.item-name {
-  color: #2c3e50;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-.item-location {
-  color: #666;
-  font-size: 1rem;
-}
-
-.item-category {
+/* Category Headers */
+.category-header {
+  position: relative;
   display: inline-block;
-  background-color: #3498db;
+}
+
+.category-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #3182ce, #63b3ed);
+}
+
+/* Icons */
+.chakra-icon {
+  transition: all 0.2s ease;
+}
+
+.chakra-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Modal Enhancements */
+.chakra-modal__content {
+  background: linear-gradient(to bottom right, #ffffff, #f8fafc);
+}
+
+.chakra-modal__header {
+  background-color: #3182ce;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
 }
 
-.item-stats {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
+.chakra-modal__close-btn {
+  color: white;
 }
 
-.item-stats p {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 0.3rem 0;
-}
-
-.item-stats p:last-child {
-  margin-bottom: 0;
-}
-
-/* Loading and error states */
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #666;
-}
-
-.error {
-  background-color: #fee;
-  color: #c0392b;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-  
-  .search-section,
-  .results-section {
+  .chakra-container {
     padding: 1rem;
   }
   
-  .header {
-    font-size: 1.5rem;
+  .chakra-modal__content {
+    margin: 0.5rem;
   }
 }
